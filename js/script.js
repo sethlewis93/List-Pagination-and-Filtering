@@ -25,13 +25,15 @@ const appendPageLinks = (list) => {
   let ulElm = document.createElement("ul"); // created new ul element to be added to pagination div
   ulElm.className = "test-ul"; // for test purposes only
   conDiv.appendChild(ulElm); // appended new ul to pagination div
-  for (let i = 0; i < pages.length; i++) {
+  for (let i = 0; i < pages; i++) {
     // attempting to add li tag for every page link
-    let getUl = document.getElementsByClassName("test-ul"); // selected new ul
-    console.log(getUl);
     let liEls = document.createElement("li"); // created new li
-    liEls.textContent = pages[i].value; // set text to index of the pages we'll need
-    getUl.appendChild(liEls); // appending new li to 'test-ul' - the UL where pagination links need to be stored
+    ulElm.appendChild(liEls); // appending new li to 'test-ul' - the UL where pagination links need to be stored
+    let a = document.createElement("a");
+    a.href = "#";
+    a.innerHTML = i;
+    a.className = "active";
+    liEls.appendChild(a);
   }
 };
 appendPageLinks(studentList);
