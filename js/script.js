@@ -6,14 +6,16 @@ const pageItems = 10;
 // function to hide all students execept for 10
 const showPage = (list, page) => {
   const startIndex = page * pageItems - pageItems;
-  const endIndex = page * pageItems - 1;
+  const endIndex = page * pageItems;
   for (let i = 0; i < list.length; i++) {
     list[i].style.display = "none";
-    if (i >= startIndex && i <= endIndex) {
+    if (i >= startIndex && i < endIndex) {
       list[i].style.display = "list-item";
     }
   }
 };
+
+showPage(studentList, 2);
 
 // function to create pagination buttons
 const appendPageLinks = (list) => {
@@ -25,13 +27,23 @@ const appendPageLinks = (list) => {
   let ulElm = document.createElement("ul"); // created new ul element to be added to pagination div
   ulElm.className = "test-ul"; // for test purposes only
   conDiv.appendChild(ulElm); // appended new ul to pagination div
-  for (let i = 0; i < pages.length; i++) {
+  for (let i = 0; i < pages; i++) {
     // attempting to add li tag for every page link
-    let getUl = document.getElementsByClassName("test-ul"); // selected new ul
-    console.log(getUl);
     let liEls = document.createElement("li"); // created new li
-    liEls.textContent = pages[i].value; // set text to index of the pages we'll need
-    getUl.appendChild(liEls); // appending new li to 'test-ul' - the UL where pagination links need to be stored
+    ulElm.appendChild(liEls); // appending new li to 'test-ul' - the UL where pagination links need to be stored
+    let a = document.createElement("a");
+    a.href = "#";
+    a.innerHTML = i + 1;
+    a.className = "active";
+    liEls.appendChild(a);
+    a.addEventListener("click", (e) => {
+      showPage(studentList, i + 1);
+      for (let j = 0; j < pages; j++) {
+        a.classList.remove("active");
+        let tar = e.target; // I still don't quite get 'e' and 'event.target'...
+        tar.classList.add("active");
+      }
+    });
   }
 };
 appendPageLinks(studentList);
