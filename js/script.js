@@ -37,13 +37,18 @@ const appendPageLinks = (list) => {
     liEls.appendChild(a);
     const firstAnchor = document.getElementsByTagName('a')[0];
     firstAnchor.className = "active"; 
-    for (let j = 0; j < a.length; j++) { // STUCK HERE
-      a.addEventListener('click', (e) => {
-        a.classList.remove("active");
-        a.target.classList.add('active')
-        showPage(studentList, i + 1);
-      })
-    }
+  
+    conDiv.addEventListener('click', (e) => {
+      const findAnchors = document.querySelectorAll('a');
+      showPage(studentList, i + 1);
+      for (let j = 0; j < findAnchors.length; j++) {
+        if (a.className == "active") {
+          a.classList.remove('active');
+        } else {
+          e.target.classList.add('active');
+        } 
+      }
+    });
   }  
 };
 appendPageLinks(studentList);
