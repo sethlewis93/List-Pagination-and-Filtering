@@ -15,7 +15,7 @@ const showPage = (list, page) => {
   }
 };
 
-showPage(studentList, 2);
+// right now when the page loads all 54 students show up
 
 // function to create pagination buttons
 const appendPageLinks = (list) => {
@@ -25,25 +25,25 @@ const appendPageLinks = (list) => {
   conDiv.className = "pagination"; // assigned new div class name
   classDiv.appendChild(conDiv); // append new div to "page" div
   let ulElm = document.createElement("ul"); // created new ul element to be added to pagination div
-  ulElm.className = "test-ul"; // for test purposes only
+  ulElm.className = "pagination"; 
   conDiv.appendChild(ulElm); // appended new ul to pagination div
   for (let i = 0; i < pages; i++) {
     // attempting to add li tag for every page link
     let liEls = document.createElement("li"); // created new li
-    ulElm.appendChild(liEls); // appending new li to 'test-ul' - the UL where pagination links need to be stored
+    ulElm.appendChild(liEls); // appending new li to 'pagination' - the UL where pagination links need to be stored
     let a = document.createElement("a");
     a.href = "#";
     a.innerHTML = i + 1;
-    a.className = "active";
     liEls.appendChild(a);
-    a.addEventListener("click", (e) => {
-      showPage(studentList, i + 1);
-      for (let j = 0; j < pages; j++) {
+    const firstAnchor = document.getElementsByTagName('a')[0];
+    firstAnchor.className = "active"; 
+    for (let j = 0; j < a.length; j++) {
+      a.addEventListener('click', (e) => {
         a.classList.remove("active");
-        let tar = e.target; // I still don't quite get 'e' and 'event.target'...
-        tar.classList.add("active");
-      }
-    });
-  }
+        a.target.classList.add('active')
+        showPage(studentList, i + 1);
+      })
+    }
+  }  
 };
 appendPageLinks(studentList);
