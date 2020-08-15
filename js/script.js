@@ -37,7 +37,7 @@ const appendPageLinks = (list) => {
     liEls.appendChild(a);
     const firstAnchor = document.getElementsByTagName('a')[0];
     firstAnchor.className = "active"; 
-    for (let j = 0; j < a.length; j++) {
+    for (let j = 0; j < a.length; j++) { // STUCK HERE
       a.addEventListener('click', (e) => {
         a.classList.remove("active");
         a.target.classList.add('active')
