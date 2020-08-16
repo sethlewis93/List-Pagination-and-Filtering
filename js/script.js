@@ -38,11 +38,10 @@ const appendPageLinks = (list) => {
     firstAnchor.className = "active"; // set first anchor (link to the page 1) to active
     const getAnchors = document.querySelectorAll('a'); // grab all new anchor tags
     for (let j = 0; j < getAnchors.length; j++) { // for every anchor...
-      getAnchors[j].addEventListener('click', (e) => {
+      conDiv.addEventListener('click', (e) => { // listener works BUT IF YOU CLICK AWAY FROM LIST, BUG OCCURS!
         let page = e.target.innerHTML; // target and store the text of the element clicked
-        if (a.className == "active") { // ...remove active class name from default active link...
+        if (event.target.tagName == 'A') {
           a.classList.remove('active');
-        } else {
           e.target.classList.add('active'); // ...add active class name to link clicked
         }
         showPage(studentList, page); // page parameter corresponds to text of element clicked
