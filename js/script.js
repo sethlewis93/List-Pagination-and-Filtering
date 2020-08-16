@@ -8,47 +8,47 @@ const showPage = (list, page) => {
   const startIndex = page * pageItems - pageItems;
   const endIndex = page * pageItems;
   for (let i = 0; i < list.length; i++) {
-    list[i].style.display = "none";
+    list[i].style.display = "none"; // hiding list items by default
     if (i >= startIndex && i < endIndex) {
-      list[i].style.display = "list-item";
+      list[i].style.display = "list-item"; 
     }
   }
 };
-
-// right now when the page loads all 54 students show up
 
 // function to create pagination buttons
 const appendPageLinks = (list) => {
   let pages = Math.ceil(list.length / pageItems); // # of pages needed for list
   let classDiv = document.querySelector(".page");
   let conDiv = document.createElement("div"); // created 'pagination' div
-  conDiv.className = "pagination"; // assigned new div class name
+  conDiv.className = "pagination"; 
   classDiv.appendChild(conDiv); // append new div to "page" div
-  let ulElm = document.createElement("ul"); // created new ul element to be added to pagination div
+  let ulElm = document.createElement("ul"); // created new ul element 
   ulElm.className = "pagination"; 
   conDiv.appendChild(ulElm); // appended new ul to pagination div
-  for (let i = 0; i < pages; i++) {
-    // attempting to add li tag for every page link
-    let liEls = document.createElement("li"); // created new li
-    ulElm.appendChild(liEls); // appending new li to 'pagination' - the UL where pagination links need to be stored
-    let a = document.createElement("a");
+
+  for (let i = 0; i < pages; i++) { // for every page needed based on list size...
+    let liEls = document.createElement("li"); // ...create new li...
+    ulElm.appendChild(liEls); // ...append new li to new ul...
+    let a = document.createElement("a"); // ...create anchor tag
     a.href = "#";
-    a.innerHTML = i + 1;
+    a.innerHTML = i + 1; // text corresponds to # of pages needed for list
     liEls.appendChild(a);
-    const firstAnchor = document.getElementsByTagName('a')[0];
-    firstAnchor.className = "active"; 
+    const firstAnchor = document.getElementsByTagName('a')[0]; // retrieve first anchor
+    firstAnchor.className = "active"; // set first anchor (link to the page 1) to active
   
     conDiv.addEventListener('click', (e) => {
-      const findAnchors = document.querySelectorAll('a');
-      showPage(studentList, i + 1);
-      for (let j = 0; j < findAnchors.length; j++) {
-        if (a.className == "active") {
+      const getAnchors = document.querySelectorAll('a'); // grab all new anchor tags
+      let page = e.target.innerHTML; // target and store the text of the element clicked
+      for (let j = 0; j < getAnchors.length; j++) { // for every anchor...
+        if (a.className == "active") { // ...remove active class name from default active link...
           a.classList.remove('active');
         } else {
-          e.target.classList.add('active');
-        } 
+          e.target.classList.add('active'); // ...add active class name to link clicked
+        }
+        showPage(studentList, page); // page parameter corresponds to text of element clicked
       }
     });
   }  
 };
+showPage(studentList, 1);
 appendPageLinks(studentList);
