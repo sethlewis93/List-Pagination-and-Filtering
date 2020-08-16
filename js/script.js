@@ -1,5 +1,5 @@
-// variable storing student LIST ITEM ELEMENTS from given HTML ??
-const studentList = document.getElementsByClassName("student-item cf"); // querySelectorAll not working for some reason...
+// variable storing student LIST ITEM ELEMENTS 
+const studentList = document.getElementsByClassName("student-item cf"); // querySelectorAll NOT WORKING FOR SOME REASON...
 // variable storing number of items to show on page
 const pageItems = 10;
 
@@ -16,6 +16,7 @@ const showPage = (list, page) => {
 };
 
 // function to create pagination buttons
+// RESEARCH: USING LITERALS HERE 
 const appendPageLinks = (list) => {
   let pages = Math.ceil(list.length / pageItems); // # of pages needed for list
   let classDiv = document.querySelector(".page");
@@ -35,20 +36,20 @@ const appendPageLinks = (list) => {
     liEls.appendChild(a);
     const firstAnchor = document.getElementsByTagName('a')[0]; // retrieve first anchor
     firstAnchor.className = "active"; // set first anchor (link to the page 1) to active
-  
-    conDiv.addEventListener('click', (e) => {
-      const getAnchors = document.querySelectorAll('a'); // grab all new anchor tags
-      let page = e.target.innerHTML; // target and store the text of the element clicked
-      for (let j = 0; j < getAnchors.length; j++) { // for every anchor...
+    const getAnchors = document.querySelectorAll('a'); // grab all new anchor tags
+    for (let j = 0; j < getAnchors.length; j++) { // for every anchor...
+      getAnchors[j].addEventListener('click', (e) => {
+        let page = e.target.innerHTML; // target and store the text of the element clicked
         if (a.className == "active") { // ...remove active class name from default active link...
           a.classList.remove('active');
         } else {
           e.target.classList.add('active'); // ...add active class name to link clicked
         }
         showPage(studentList, page); // page parameter corresponds to text of element clicked
-      }
-    });
+      });
+    };
   }  
 };
 showPage(studentList, 1);
 appendPageLinks(studentList);
+// add search button
