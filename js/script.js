@@ -37,7 +37,6 @@ const appendPageLinks = (list) => {
     const firstAnchor = document.getElementsByTagName('a')[0]; // retrieve first anchor
     firstAnchor.className = "active"; // set first anchor (link to the page 1) to active
     const getAnchors = document.querySelectorAll('a'); // grab all new anchor tags
-    console.log(getAnchors);
     for (let j = 0; j < getAnchors.length; j++) { // for every anchor...
       liEls.addEventListener('click', (e) => { // listener works BUT IF YOU CLICK AWAY FROM LIST, BUG OCCURS!
         let page = e.target.innerHTML; // target and store the text of the element clicked
