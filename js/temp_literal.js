@@ -19,14 +19,6 @@ const showPage = (list, page) => {
 // RESEARCH: USING LITERALS HERE 
 const appendPageLinks = (list) => {
   const pages = Math.ceil(list.length / pageItems); // # of pages needed for list
-  // let classDiv = document.querySelector(".page")
-  // let conDiv = document.createElement("div"); // created 'pagination' div
-  // conDiv.className = "pagination"; 
-  // classDiv.appendChild(conDiv); // append new div to "page" div
-  // let ulElm = document.createElement("ul"); // created new ul element 
-  // ulElm.className = "pagination"; 
-  // conDiv.appendChild(ulElm); // appended new ul to pagination div
- 
   for (let i = 0; i < pages; i++) { // for every page needed based on list size...
     let createList = `
       <div class="newDiv">
@@ -38,12 +30,6 @@ const appendPageLinks = (list) => {
       </div>
     `;
     document.querySelector('.page').innerHTML = createList;
-    // let liEls = document.createElement("li"); // ...create new li...
-    // ulElm.appendChild(liEls); // ...append new li to new ul...
-    // let a = document.createElement("a"); // ...create anchor tag
-    // a.href = "#";
-    // a.innerHTML = i + 1; // text corresponds to # of pages needed for list
-    // liEls.appendChild(a);
     const pageDiv = document.querySelector('.newDiv');
     const firstAnchor = document.getElementsByTagName('a')[0]; // retrieve first anchor
     firstAnchor.className = "active"; // set first anchor (link to the page 1) to active
