@@ -56,7 +56,7 @@ appendPageLinks(studentList);
 const pageHeaderDiv = document.getElementsByClassName("page-header cf");
 console.log(pageHeaderDiv);
 
-pageHeaderDiv.addEventListener("submit", (e) => {
+pageHeaderDiv.addEventListener("click", (e) => {
   e.preventDefault();
   const searchDiv = document.createElement("div");
   searchDiv.className = "student-search";
