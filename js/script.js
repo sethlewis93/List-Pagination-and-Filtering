@@ -40,8 +40,8 @@ const appendPageLinks = (list) => {
     for (let j = 0; j < getAnchors.length; j++) { // for every anchor...
       liEls.addEventListener('click', (e) => { 
         let page = e.target.innerHTML; // target and store the text of the element clicked
-          getAnchors[j].classList.remove('active');
-          e.target.classList.add('active'); // ...add active class name to link clicked
+        getAnchors[j].classList.remove('active');
+        e.target.classList.add('active'); // ...add active class name to link clicked
         showPage(studentList, page); // page parameter corresponds to text of element clicked
       });
     };
