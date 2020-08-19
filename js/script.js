@@ -60,4 +60,5 @@ pageHeaderDiv.addEventListener("click", (e) => {
   e.preventDefault();
   const searchDiv = document.createElement("div");
   searchDiv.className = "student-search";
+  pageHeaderDiv.appendChild(searchDiv);
 });
