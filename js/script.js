@@ -53,12 +53,18 @@ showPage(studentList, 1);
 appendPageLinks(studentList);
 
 // add search button
-const pageHeaderDiv = document.querySelector(".page-header cf");
-console.log(pageHeaderDiv);
+const pageHeaderDiv = document.querySelector(".page-header");
+const searchDiv = document.createElement("div");
+searchDiv.className = "student-search";
+pageHeaderDiv.appendChild(searchDiv);
+const input = document.createElement('input'); 
+input.placeholder = 'Search for students...';
+searchDiv.appendChild(input);
+const button = document.createElement('button');
+button.textContent = 'Search';
+searchDiv.appendChild(button);
 
 pageHeaderDiv.addEventListener("submit", (e) => {
   e.preventDefault();
-  const searchDiv = document.createElement("div");
-  searchDiv.className = "student-search";
-  pageHeaderDiv.appendChild(searchDiv);
+  
 });
