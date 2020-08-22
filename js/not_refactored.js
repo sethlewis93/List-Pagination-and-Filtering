@@ -1,4 +1,3 @@
-
 // Store student list items
 const studentList = document.querySelectorAll(".student-item"); 
 
@@ -17,32 +16,21 @@ const showPage = (list, page) => {
   }
 };
 
-// Create pagination buttons
+// Function to create pagination buttons
 const appendPageLinks = (list) => {
 
-  // Set the pages needed
-  const pages = Math.ceil(list.length / pageItems);
-   
-  const classDiv = document.querySelector(".page");
+  // Page link variables
+  let pages = Math.ceil(list.length / pageItems); 
+  let classDiv = document.querySelector(".page");
+  let conDiv = document.createElement("div"); 
+  conDiv.className = "pagination";
+  classDiv.appendChild(conDiv); 
+  let ulElm = document.createElement("ul"); 
+  ulElm.className = "pagination";
+  conDiv.appendChild(ulElm); 
 
-  // Dynamically add new elements
-  const createElement = (elementName, property, value) => {
-    const element = document.createElement(elementName); 
-    elementName[property] = value;
-    return element;
-  }
-  // Dynamically append new elements 
-  const appendToDIV = (elementName, property, value) => {
-    const element = createElement(elementName, property, value);
-    classDiv.appendChild(element);
-    return element;
-  }
-  appendToDIV('div', 'className', 'pagination')
-    .appendChild(createElement('ul', 'className', 'testUL'));
-  
-  // Page links
+// Page links
   for (let i = 0; i < pages; i++) {
-    const ulElm = document.getElementsByTagName('ul').parentNode.parentNode;
     let liEls = document.createElement("li"); 
     ulElm.appendChild(liEls); 
     let a = document.createElement("a"); 
