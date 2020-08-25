@@ -28,7 +28,7 @@ const appendPageLinks = (list) => {
   // Dynamically add new elements
   const createElement = (elementName, property, value) => {
     const element = document.createElement(elementName); 
-    elementName[property] = value;
+    element[property] = value;
     return element;
   }
   // Dynamically append new elements 
@@ -37,21 +37,19 @@ const appendPageLinks = (list) => {
     classDiv.appendChild(element);
     return element;
   }
-  appendToDIV('div', 'className', 'pagination')
-    .appendChild(createElement('ul', 'className', 'testUL'));
+  const ul = appendToDIV('div', 'className', 'pagination')
+    .appendChild(createElement('ul', 'className', 'pageLinks'));
   
   // Page links
   for (let i = 0; i < pages; i++) {
-    const ulElm = document.getElementsByTagName('ul').parentNode.parentNode;
-    let liEls = document.createElement("li"); 
-    ulElm.appendChild(liEls); 
-    let a = document.createElement("a"); 
+    const li = createElement('li', 'className', 'listItems');
+    const a = createElement('a', 'className', '');
+    ul.appendChild(li).appendChild(a); // is there a more efficient way?
     a.href = "#";
     a.innerHTML = i + 1; 
-    liEls.appendChild(a);
     const firstAnchor = document.getElementsByTagName("a")[0]; 
     firstAnchor.className = "active"; 
-    liEls.addEventListener("click", (e) => {
+    li.addEventListener("click", (e) => {
       const getAnchors = document.querySelectorAll("a"); 
       for (let j = 0; j < getAnchors.length; j++) {
         getAnchors[j].classList.remove("active");
