@@ -99,6 +99,7 @@ const nameSearch = (searchInput, names) => {
   }
 }
 
+// listeners on button and input
 button.addEventListener('click', (e) => { 
   // If i want to use the 'enter' key - neither 'submit' or 'click' events log the console message 
   e.preventDefault();
