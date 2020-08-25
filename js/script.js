@@ -17,20 +17,23 @@ const showPage = (list, page) => {
   }
 };
 
+
 // Create pagination buttons
 const appendPageLinks = (list) => {
 
   // Set the pages needed
   const pages = Math.ceil(list.length / pageItems);
-   
+  
+  // Create, append pagnination elements 
   const classDiv = document.querySelector(".page");
 
   // Dynamically add new elements
   const createElement = (elementName, property, value) => {
-    const element = document.createElement(elementName); 
-    element[property] = value;
-    return element;
-  }
+  const element = document.createElement(elementName); 
+  element[property] = value;
+  return element;
+}
+
   // Dynamically append new elements 
   const appendToDIV = (elementName, property, value) => {
     const element = createElement(elementName, property, value);
@@ -63,19 +66,44 @@ const appendPageLinks = (list) => {
 showPage(studentList, 1);
 appendPageLinks(studentList);
 
-// add search button
+// search button
+const createElement = (elementName, property, value) => {
+  const element = document.createElement(elementName); 
+  element[property] = value;
+  return element;
+}
 const pageHeaderDiv = document.querySelector(".page-header");
-const searchDiv = document.createElement("div");
-searchDiv.className = "student-search";
-pageHeaderDiv.appendChild(searchDiv);
-const input = document.createElement('input'); 
-input.placeholder = 'Search for students...';
-searchDiv.appendChild(input);
-const button = document.createElement('button');
-button.textContent = 'Search';
+const searchDiv = createElement('div', 'className', 'student-search');
+const input = createElement('input', 'placeholder', 'Search for students...');
+input.type = 'text'; 
+const button = createElement('button', 'textContent', 'Search');
+button.type = 'button'; 
+pageHeaderDiv.appendChild(searchDiv).appendChild(input);
 searchDiv.appendChild(button);
 
-pageHeaderDiv.addEventListener("submit", (e) => {
+// search function
+ 
+const nameSearch = (searchInput, names) => {
+  for (let i = 0; i < names.length; i++) {
+    names[i].classList.remove('match');
+    console.log(names[i].textContent);
+    // how do I target only the h3 textContent and not the other tags?
+    if (searchInput.value == names[i].textContent.toLowerCase()) {
+      // What's wrong with my conditional?
+      names[i].classList.add('match');
+      console.log(searchInput);
+    } else {
+      // This works
+      names[i].style.display = "none"; 
+    }
+  }
+}
+
+button.addEventListener('click', (e) => { 
+  // If i want to use the 'enter' key - neither 'submit' or 'click' events log the console message 
   e.preventDefault();
-  
+  nameSearch(input, studentList);
+  console.log('Submit button works');
 });
+
+input.addEventListener('keyup', () => nameSearch(input, studentList));
