@@ -103,6 +103,7 @@ button.addEventListener('click', (e) => {
         const ul = document.querySelector('.student-list');
         ul.innerText = 'No results found matching your search. Please try again.';
         } else {
+        // This doesn't really do anything but the function should take in the list and return search results
         showPage(nameSearch, 1);
         // appendPageLinks(nameSearch);
       }
