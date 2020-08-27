@@ -80,31 +80,46 @@ const button = createElement('button', 'textContent', 'Search');
 button.type = 'button'; 
 pageHeaderDiv.appendChild(searchDiv).appendChild(input);
 searchDiv.appendChild(button);
-
-// search function
  
-const nameSearch = (searchInput, names) => {
-  for (let i = 0; i < names.length; i++) {
-    names[i].classList.remove('match');
-    console.log(names[i].textContent);
-    // how do I target only the h3 textContent and not the other tags?
-    if (searchInput.value == names[i].textContent.toLowerCase()) {
-      // What's wrong with my conditional?
-      names[i].classList.add('match');
-      console.log(searchInput);
-    } else {
-      // This works
-      names[i].style.display = "none"; 
-    }
-  }
-}
-
 // listeners on button and input
 button.addEventListener('click', (e) => { 
-  // If i want to use the 'enter' key - neither 'submit' or 'click' events log the console message 
   e.preventDefault();
-  nameSearch(input, studentList);
-  console.log('Submit button works');
+  let nameSearch = [];
+  for (let i = 0; i < studentList.length; i++) {
+    let studentName = studentList[i].querySelectorAll('h3');
+    console.log(studentName);
+    studentList[i].classList.remove('match');
+    if (studentName.value.textContent.toLowerCase() == input.value.toLowerCase()) {
+      studentList.style.display = 'block'; 
+      nameSearch.push(studentList);
+      studentName.classList.add('match')
+    } else {
+      studentList.style.display = 'none';
+    }
+    if (nameSearch.length === 0) {
+      const ul = document.querySelector('.student-list');
+      ul.innerText = 'No results found matching your search. Please try again.';
+      } else {
+      const matches = document.querySelectorAll('.match');
+      showPage(nameSearch, 1);
+      appendPageLinks(nameSearch);
+    }
+  }
 });
 
-input.addEventListener('keyup', () => nameSearch(input, studentList));
+/*input.addEventListener('keyup', () => nameSearch(input, studentList));
+
+// Display pagination links based on search results
+const matches = document.querySelectorAll('.match');
+
+// Convert nodeList into Array: code retrieved from Stack Overflow query
+const searchResults = Array.from(matches);
+
+// showPage(searchResults, 1);
+// appendPageLinks(searchResults);
+
+if (searchResults.length === 0) {
+  const ul = document.querySelector('.student-list');
+  ul.innerHTML = 'No results found matching your search. Please try again.';
+}
+*/
