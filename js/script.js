@@ -86,24 +86,27 @@ button.addEventListener('click', (e) => {
   e.preventDefault();
   let nameSearch = [];
   for (let i = 0; i < studentList.length; i++) {
-    let studentName = studentList[i].querySelectorAll('h3');
-    console.log(studentName);
-    studentList[i].classList.remove('match');
-    if (studentName.value.textContent.toLowerCase() == input.value.toLowerCase()) {
-      studentList.style.display = 'block'; 
-      nameSearch.push(studentList);
-      studentName.classList.add('match')
-    } else {
-      studentList.style.display = 'none';
-    }
-    if (nameSearch.length === 0) {
-      const ul = document.querySelector('.student-list');
-      ul.innerText = 'No results found matching your search. Please try again.';
+    let studentName = studentList[i].querySelector('h3'); // returning h3 elements with name inside textContent 
+    if (input.value.length !== 0) {
+      let userSearch = input.value.toLowerCase(); // returns lower case string
+      if (studentName.innerText.includes(userSearch)) { 
+        // STUCK HERE
+        nameSearch.push(studentList[i]);
+        studentList[i].classList.add('match');
+        // THIS RETURNS THE MATCHING NAME TO THE CONSOLE BUT I CAN'T DISPLAY IT ON PAGE
+        console.log(nameSearch); 
       } else {
-      const matches = document.querySelectorAll('.match');
-      showPage(nameSearch, 1);
-      appendPageLinks(nameSearch);
-    }
+        studentList[i].style.display = 'none';   
+      }
+      // nameSearch log on line 97 gives me an array length of 1 yet code on line 102 below is NONETHELESS EXECUTING
+      if (nameSearch.length === 0) {
+        const ul = document.querySelector('.student-list');
+        ul.innerText = 'No results found matching your search. Please try again.';
+        } else {
+        showPage(nameSearch, 1);
+        // appendPageLinks(nameSearch);
+      }
+    } 
   }
 });
 
