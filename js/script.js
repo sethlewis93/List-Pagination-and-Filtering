@@ -95,8 +95,7 @@ searchDiv.appendChild(button);
  
 // listeners on button and input
 // search functionality
-button.addEventListener('click', (e) => { // NEW BUG: 'click' seems to be the only one that works here
-  e.preventDefault();
+function searchFeature() {
   let namesMatch = [];
   for (let i = 0; i < studentList.length; i++) {
     let studentName = studentList[i].querySelector('h3'); 
@@ -130,43 +129,19 @@ button.addEventListener('click', (e) => { // NEW BUG: 'click' seems to be the on
       const paginationDiv = document.querySelector('.pagination');
       pageDiv.removeChild(paginationDiv)
       appendPageLinks(namesMatch)
-      showPage(namesMatch, pages);
+      showPage(namesMatch, 1);
     }
+}
+
+button.addEventListener('click', (e) => { 
+  e.preventDefault();
+  searchFeature();
 });
 
 // NEW BUG: Can't enter more searches once the 'no results' string displays
-// input.addEventListener('input', () => {
-//   let namesMatch = [];
-//   for (let i = 0; i < studentList.length; i++) {
-//     let studentName = studentList[i].querySelector('h3'); 
-//     if (input.value.length !== 0) {
-//       let userSearch = input.value.toLowerCase(); 
-//       if (studentName.textContent.includes(userSearch)) { 
-//         namesMatch.push(studentList[i]);
-//         studentList[i].classList.add('match'); // is this line even necessary?
-//       } else {
-//         studentList[i].style.display = 'none';   
-//       }  
-//     } 
-//   }  
-//   if (namesMatch.length === 0) {
-//     const ul = document.querySelector('.student-list');
-//     ul.innerText = 'No results found matching your search. Please try again.';
-//     } else {
-//       if (namesMatch.length > pageItems) {
-//         // if matching names array is longer than 10, remove original pagination links, call appendPageLinks function
-//         const pages = Math.ceil(namesMatch.length / pageItems);
-//         const pageDiv = document.querySelector('.page');
-//         const paginationDiv = document.querySelector('.pagination');
-//         pageDiv.removeChild(paginationDiv)
-//         appendPageLinks(namesMatch)
-//         showPage(namesMatch, pages);
-//         } else  {
-//           // otherwise, show only one page
-//           showPage(namesMatch, 1);
-//        } 
-//     }
-// });
+input.addEventListener('input', () => {
+  searchFeature();
+});
 
 
 /*input.addEventListener('keyup', () => namesMatch(input, studentList));
