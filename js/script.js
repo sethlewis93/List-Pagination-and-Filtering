@@ -117,8 +117,10 @@ button.addEventListener('click', (e) => { // NEW BUG: 'click' seems to be the on
     element[property] = value;
     return element;
     }
+
     const h2 = createElement('h2', 'textContent', 'No results found matching your search. Please try again.');
     h2.id = 'no-results';
+    
     } else {
       if (namesMatch.length > pageItems) {
         // if matching names array is longer than 10, remove original pagination links, call appendPageLinks function
