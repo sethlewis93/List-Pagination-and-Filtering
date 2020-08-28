@@ -66,6 +66,11 @@ const appendPageLinks = (list) => {
 showPage(studentList, 1);
 appendPageLinks(studentList);
 
+/*
+  ////////////////////////////////////////////
+  CODE TO OBTAIN "EXCEEDS EXPECTATIONS" GRADE
+  ////////////////////////////////////////////
+*/
 // search button
 const createElement = (elementName, property, value) => {
   const element = document.createElement(elementName); 
