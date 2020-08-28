@@ -108,9 +108,6 @@ function searchFeature() {
     const pageHeader = document.querySelector('.page-header');
     pageHeader.appendChild(h2);
     h2.style.visibility = 'hidden';
-    if (h2.style.visibility == 'hidden') {
-      h2.style.visibility = 'visible';
-    }
   }
   for (let i = 0; i < studentList.length; i++) {
     let studentName = studentList[i].querySelector('h3'); 
@@ -122,6 +119,8 @@ function searchFeature() {
         studentList[i].classList.add('match');
       } else {
         studentList[i].style.display = 'none';   
+        let h2Message = document.querySelector('#no-results'); 
+        h2Message.style.visibility = 'visible';
       }
     } 
   }
