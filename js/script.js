@@ -134,7 +134,6 @@ input.addEventListener('input', () => {
     } else {
       if (namesMatch.length > pageItems) {
         // if matching names array is longer than 10, remove original pagination links, call appendPageLinks function
-        console.log(namesMatch);
         const pages = Math.ceil(namesMatch.length / pageItems);
         const pageDiv = document.querySelector('.page');
         const paginationDiv = document.querySelector('.pagination');
