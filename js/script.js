@@ -120,12 +120,12 @@ input.addEventListener('input', () => {
     let studentName = studentList[i].querySelector('h3'); 
     if (input.value.length !== 0) {
       let userSearch = input.value.toLowerCase(); 
-      if (studentName.innerText.includes(userSearch)) { 
+      if (studentName.textContent.includes(userSearch)) { 
         namesMatch.push(studentList[i]);
-        studentList[i].classList.add('match');
+        studentList[i].classList.add('match'); // is this line even necessary?
       } else {
         studentList[i].style.display = 'none';   
-      }
+      }  
     } 
   }  
   if (namesMatch.length === 0) {
@@ -134,6 +134,7 @@ input.addEventListener('input', () => {
     } else {
       if (namesMatch.length > pageItems) {
         // if matching names array is longer than 10, remove original pagination links, call appendPageLinks function
+        console.log(namesMatch);
         const pages = Math.ceil(namesMatch.length / pageItems);
         const pageDiv = document.querySelector('.page');
         const paginationDiv = document.querySelector('.pagination');
