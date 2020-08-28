@@ -120,8 +120,8 @@ button.addEventListener('click', (e) => { // NEW BUG: 'click' seems to be the on
 
     const h2 = createElement('h2', 'textContent', 'No results found matching your search. Please try again.');
     h2.id = 'no-results';
-    const paginationDiv = document.querySelector('.pagination');
-    paginationDiv.appendChild(h2);
+    const pageHeader = document.querySelector('.page-header');
+    pageHeader.appendChild(h2);
 
 
     } else {
