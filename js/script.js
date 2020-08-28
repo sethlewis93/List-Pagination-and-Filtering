@@ -47,7 +47,7 @@ const appendPageLinks = (list) => {
   for (let i = 0; i < pages; i++) {
     const li = createElement('li', 'className', 'listItems');
     const a = createElement('a', 'className', '');
-    ul.appendChild(li).appendChild(a); // is there a more efficient way?
+    ul.appendChild(li).appendChild(a);
     a.href = "#";
     a.innerHTML = i + 1; 
     const firstAnchor = document.getElementsByTagName("a")[0]; 
@@ -82,39 +82,73 @@ pageHeaderDiv.appendChild(searchDiv).appendChild(input);
 searchDiv.appendChild(button);
  
 // listeners on button and input
-button.addEventListener('click', (e) => { 
+// search functionality
+button.addEventListener('click', (e) => { // NEW BUG: 'click' seems to be the only one that works here
   e.preventDefault();
-  let nameSearch = [];
+  let namesMatch = [];
   for (let i = 0; i < studentList.length; i++) {
-    let studentName = studentList[i].querySelector('h3'); // returning h3 elements with name inside textContent 
+    let studentName = studentList[i].querySelector('h3'); 
     if (input.value.length !== 0) {
-      let userSearch = input.value.toLowerCase(); // returns lower case string
+      let userSearch = input.value.toLowerCase(); 
       if (studentName.innerText.includes(userSearch)) { 
-        // STUCK HERE
-        nameSearch.push(studentList[i]);
+        namesMatch.push(studentList[i]);
         studentList[i].classList.add('match');
-        // THIS RETURNS THE MATCHING NAME TO THE CONSOLE BUT I CAN'T DISPLAY IT ON PAGE
-        console.log(nameSearch); 
       } else {
         studentList[i].style.display = 'none';   
       }
-      // nameSearch log on line 97 gives me an array length of 1 yet code on line 102 below is NONETHELESS EXECUTING
-      if (nameSearch.length === 0) {
-        const ul = document.querySelector('.student-list');
-        ul.innerText = 'No results found matching your search. Please try again.';
-        } else {
-        // This doesn't really do anything but the function should take in the list and return search results
-        showPage(nameSearch, 1);
-        // appendPageLinks(nameSearch);
-      }
     } 
+  }  
+  // NEW BUG: if search returns 'no results' string, I can't execute a search again without refreshing
+  if (namesMatch.length === 0) {
+    const ul = document.querySelector('.student-list');
+    ul.innerText = 'No results found matching your search. Please try again.';
+    } else {
+    showPage(namesMatch, 1);
+    // appendPageLinks(namesMatch);
   }
 });
 
-/*input.addEventListener('keyup', () => nameSearch(input, studentList));
+// NEW BUG: Can't enter more searches once the 'no results' string displays
+input.addEventListener('input', () => {
+  let namesMatch = [];
+  for (let i = 0; i < studentList.length; i++) {
+    let studentName = studentList[i].querySelector('h3'); 
+    if (input.value.length !== 0) {
+      let userSearch = input.value.toLowerCase(); 
+      if (studentName.innerText.includes(userSearch)) { 
+        namesMatch.push(studentList[i]);
+        studentList[i].classList.add('match');
+      } else {
+        studentList[i].style.display = 'none';   
+      }
+    } 
+  }  
+  if (namesMatch.length === 0) {
+    const ul = document.querySelector('.student-list');
+    ul.innerText = 'No results found matching your search. Please try again.';
+    } else {
+      if (namesMatch.length > pageItems) {
+        // if matching names array is longer than 10, call appendPageLinks function
+        const pages = Math.ceil(namesMatch.length / pageItems);
+        const classDiv = document.querySelector(".page");
+        /* appendPageLinks creates elements each time it is called. Here I want to replace the DOM elements that are 
+        loaded with the original page with the necessary pagination links resulting from search
+        console registers line 136 as UNCAUGHT TYPE ERROR for invalid argument. What are other options for replacement? */ 
+        classDiv.replaceChild(appendPageLinks(namesMatch), appendPageLinks(studentList));
+        showPage(namesMatch, pages);
+        } else  {
+          // otherwise, show only one page
+          showPage(namesMatch, 1);
+       } 
+    }
+});
+
+
+/*input.addEventListener('keyup', () => namesMatch(input, studentList));
 
 // Display pagination links based on search results
 const matches = document.querySelectorAll('.match');
+console.log(matches);
 
 // Convert nodeList into Array: code retrieved from Stack Overflow query
 const searchResults = Array.from(matches);
