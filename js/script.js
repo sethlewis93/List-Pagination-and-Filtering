@@ -110,27 +110,11 @@ function searchFeature() {
       }
     } 
   }  
-  // if search fails to match any names
-  if (namesMatch.length === 0) {
-    const createElement = (elementName, property, value) => {
-    const element = document.createElement(elementName); 
-    element[property] = value;
-    return element;
-    }
-    // create h2 element with 'no results' text to display
-    const h2 = createElement('h2', 'textContent', 'No results found matching your search. Please try again.');
-    h2.id = 'no-results';
-    const pageHeader = document.querySelector('.page-header');
-    pageHeader.appendChild(h2);
-    // otherwise, remove old pagination links and set them according to new search results 
-    } else {
-      const pages = Math.ceil(namesMatch.length / pageItems);
-      const pageDiv = document.querySelector('.page');
-      const paginationDiv = document.querySelector('.pagination');
-      pageDiv.removeChild(paginationDiv)
-      appendPageLinks(namesMatch)
-      showPage(namesMatch, 1);
-    }
+  const pageDiv = document.querySelector('.page');
+  const paginationDiv = document.querySelector('.pagination');
+  pageDiv.removeChild(paginationDiv)
+  appendPageLinks(namesMatch)
+  showPage(namesMatch, 1);
 }
 
 button.addEventListener('click', (e) => { 
@@ -141,6 +125,17 @@ button.addEventListener('click', (e) => {
 // NEW BUG: Can't enter more searches once the 'no results' string displays
 input.addEventListener('input', () => {
   searchFeature();
+  if (namesMatch.length === 0) {
+    const createElement = (elementName, property, value) => {
+    const element = document.createElement(elementName); 
+    element[property] = value;
+    return element;
+    }
+    const h2 = createElement('h2', 'textContent', 'No results found matching your search. Please try again.');
+    h2.id = 'no-results';
+    const pageHeader = document.querySelector('.page-header');
+    pageHeader.appendChild(h2);
+  }
 });
 
 
