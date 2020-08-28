@@ -25,7 +25,7 @@ const appendPageLinks = (list) => {
   const pages = Math.ceil(list.length / pageItems);
   
   // Create, append pagnination elements 
-  const classDiv = document.querySelector(".page");
+  const pageDiv = document.querySelector(".page");
 
   // Dynamically add new elements
   const createElement = (elementName, property, value) => {
@@ -37,7 +37,7 @@ const appendPageLinks = (list) => {
   // Dynamically append new elements 
   const appendToDIV = (elementName, property, value) => {
     const element = createElement(elementName, property, value);
-    classDiv.appendChild(element);
+    pageDiv.appendChild(element);
     return element;
   }
   const ul = appendToDIV('div', 'className', 'pagination')
@@ -128,13 +128,12 @@ input.addEventListener('input', () => {
     ul.innerText = 'No results found matching your search. Please try again.';
     } else {
       if (namesMatch.length > pageItems) {
-        // if matching names array is longer than 10, call appendPageLinks function
+        // if matching names array is longer than 10, remove original pagination links, call appendPageLinks function
         const pages = Math.ceil(namesMatch.length / pageItems);
-        const classDiv = document.querySelector(".page");
-        /* appendPageLinks creates elements each time it is called. Here I want to replace the DOM elements that are 
-        loaded with the original page with the necessary pagination links resulting from search
-        console registers line 136 as UNCAUGHT TYPE ERROR for invalid argument. What are other options for replacement? */ 
-        classDiv.replaceChild(appendPageLinks(namesMatch), appendPageLinks(studentList));
+        const pageDiv = document.querySelector('.page');
+        const paginationDiv = document.querySelector('.pagination');
+        pageDiv.removeChild(paginationDiv)
+        appendPageLinks(namesMatch)
         showPage(namesMatch, pages);
         } else  {
           // otherwise, show only one page
