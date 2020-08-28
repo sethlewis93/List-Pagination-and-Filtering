@@ -111,36 +111,27 @@ button.addEventListener('click', (e) => { // NEW BUG: 'click' seems to be the on
       }
     } 
   }  
+  // if search fails to match any names
   if (namesMatch.length === 0) {
     const createElement = (elementName, property, value) => {
     const element = document.createElement(elementName); 
     element[property] = value;
     return element;
     }
-
+    // create h2 element with 'no results' text to display
     const h2 = createElement('h2', 'textContent', 'No results found matching your search. Please try again.');
     h2.id = 'no-results';
     const pageHeader = document.querySelector('.page-header');
     pageHeader.appendChild(h2);
 
-
     } else {
-      if (namesMatch.length > pageItems) {
-        // if matching names array is longer than 10, remove original pagination links, call appendPageLinks function
-        const pages = Math.ceil(namesMatch.length / pageItems);
-        const pageDiv = document.querySelector('.page');
-        const paginationDiv = document.querySelector('.pagination');
-        pageDiv.removeChild(paginationDiv)
-        appendPageLinks(namesMatch)
-        showPage(namesMatch, pages);
-        if (h2) {
-          h2.parentElement.removeChild(h2);
-        } else  {
-          // otherwise, show only one page
-          showPage(namesMatch, 1);
-        } 
-      } 
-  }
+      const pages = Math.ceil(namesMatch.length / pageItems);
+      const pageDiv = document.querySelector('.page');
+      const paginationDiv = document.querySelector('.pagination');
+      pageDiv.removeChild(paginationDiv)
+      appendPageLinks(namesMatch)
+      showPage(namesMatch, pages);
+    }
 });
 
 // NEW BUG: Can't enter more searches once the 'no results' string displays
