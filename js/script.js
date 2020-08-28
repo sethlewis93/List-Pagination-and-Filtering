@@ -123,7 +123,7 @@ button.addEventListener('click', (e) => { // NEW BUG: 'click' seems to be the on
     h2.id = 'no-results';
     const pageHeader = document.querySelector('.page-header');
     pageHeader.appendChild(h2);
-
+    // otherwise, remove old pagination links and set them according to new search results 
     } else {
       const pages = Math.ceil(namesMatch.length / pageItems);
       const pageDiv = document.querySelector('.page');
