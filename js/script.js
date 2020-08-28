@@ -25,7 +25,13 @@ const appendPageLinks = (list) => {
   const pages = Math.ceil(list.length / pageItems);
   
   // Create, append pagnination elements 
-  const pageDiv = document.querySelector(".page");
+  const pageDiv = document.querySelector('.page');
+
+  // Target pagination div
+  const paginationDiv = document.querySelector('.pagination')
+  if (paginationDiv) {
+    paginationDiv.parentElement.removeChild(paginationDiv);
+  }
 
   // Dynamically add new elements
   const createElement = (elementName, property, value) => {
@@ -59,7 +65,7 @@ const appendPageLinks = (list) => {
       }
       let page = e.target.innerHTML; 
       e.target.classList.add("active"); 
-      showPage(studentList, page); 
+      showPage(list, page); 
     });
   }
 };
@@ -71,6 +77,7 @@ appendPageLinks(studentList);
   CODE TO OBTAIN "EXCEEDS EXPECTATIONS" GRADE
   ////////////////////////////////////////////
 */
+
 // search button
 const createElement = (elementName, property, value) => {
   const element = document.createElement(elementName); 
@@ -95,42 +102,23 @@ button.addEventListener('click', (e) => { // NEW BUG: 'click' seems to be the on
     let studentName = studentList[i].querySelector('h3'); 
     if (input.value.length !== 0) {
       let userSearch = input.value.toLowerCase(); 
-      if (studentName.innerText.includes(userSearch)) { 
+      if (studentName.textContent.includes(userSearch)) { 
         namesMatch.push(studentList[i]);
+        console.log(namesMatch);
         studentList[i].classList.add('match');
       } else {
         studentList[i].style.display = 'none';   
       }
     } 
   }  
-  // NEW BUG: if search returns 'no results' string, I can't execute a search again without refreshing
   if (namesMatch.length === 0) {
-    const ul = document.querySelector('.student-list');
-    ul.innerText = 'No results found matching your search. Please try again.';
-    } else {
-    showPage(namesMatch, 1);
-    // appendPageLinks(namesMatch);
-  }
-});
-
-// NEW BUG: Can't enter more searches once the 'no results' string displays
-input.addEventListener('input', () => {
-  let namesMatch = [];
-  for (let i = 0; i < studentList.length; i++) {
-    let studentName = studentList[i].querySelector('h3'); 
-    if (input.value.length !== 0) {
-      let userSearch = input.value.toLowerCase(); 
-      if (studentName.textContent.includes(userSearch)) { 
-        namesMatch.push(studentList[i]);
-        studentList[i].classList.add('match'); // is this line even necessary?
-      } else {
-        studentList[i].style.display = 'none';   
-      }  
-    } 
-  }  
-  if (namesMatch.length === 0) {
-    const ul = document.querySelector('.student-list');
-    ul.innerText = 'No results found matching your search. Please try again.';
+    const createElement = (elementName, property, value) => {
+    const element = document.createElement(elementName); 
+    element[property] = value;
+    return element;
+    }
+    const h2 = createElement('h2', 'textContent', 'No results found matching your search. Please try again.');
+    h2.id = 'no-results';
     } else {
       if (namesMatch.length > pageItems) {
         // if matching names array is longer than 10, remove original pagination links, call appendPageLinks function
@@ -140,12 +128,49 @@ input.addEventListener('input', () => {
         pageDiv.removeChild(paginationDiv)
         appendPageLinks(namesMatch)
         showPage(namesMatch, pages);
+        if (h2) {
+          h2.parentElement.removeChild(h2);
         } else  {
           // otherwise, show only one page
           showPage(namesMatch, 1);
-       } 
-    }
+        } 
+      } 
+  }
 });
+
+// NEW BUG: Can't enter more searches once the 'no results' string displays
+// input.addEventListener('input', () => {
+//   let namesMatch = [];
+//   for (let i = 0; i < studentList.length; i++) {
+//     let studentName = studentList[i].querySelector('h3'); 
+//     if (input.value.length !== 0) {
+//       let userSearch = input.value.toLowerCase(); 
+//       if (studentName.textContent.includes(userSearch)) { 
+//         namesMatch.push(studentList[i]);
+//         studentList[i].classList.add('match'); // is this line even necessary?
+//       } else {
+//         studentList[i].style.display = 'none';   
+//       }  
+//     } 
+//   }  
+//   if (namesMatch.length === 0) {
+//     const ul = document.querySelector('.student-list');
+//     ul.innerText = 'No results found matching your search. Please try again.';
+//     } else {
+//       if (namesMatch.length > pageItems) {
+//         // if matching names array is longer than 10, remove original pagination links, call appendPageLinks function
+//         const pages = Math.ceil(namesMatch.length / pageItems);
+//         const pageDiv = document.querySelector('.page');
+//         const paginationDiv = document.querySelector('.pagination');
+//         pageDiv.removeChild(paginationDiv)
+//         appendPageLinks(namesMatch)
+//         showPage(namesMatch, pages);
+//         } else  {
+//           // otherwise, show only one page
+//           showPage(namesMatch, 1);
+//        } 
+//     }
+// });
 
 
 /*input.addEventListener('keyup', () => namesMatch(input, studentList));
