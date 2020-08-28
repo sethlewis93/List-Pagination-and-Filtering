@@ -97,6 +97,21 @@ searchDiv.appendChild(button);
 // search functionality
 function searchFeature() {
   let namesMatch = [];
+  if (namesMatch.length === 0) {
+    const createElement = (elementName, property, value) => {
+    const element = document.createElement(elementName); 
+    element[property] = value;
+    return element;
+    }
+    const h2 = createElement('h2', 'textContent', 'No results found matching your search. Please try again.');
+    h2.id = 'no-results';
+    const pageHeader = document.querySelector('.page-header');
+    pageHeader.appendChild(h2);
+    h2.style.visibility = 'hidden';
+    if (h2.style.visibility == 'hidden') {
+      h2.style.visibility = 'visible';
+    }
+  }
   for (let i = 0; i < studentList.length; i++) {
     let studentName = studentList[i].querySelector('h3'); 
     if (input.value.length !== 0) {
@@ -109,12 +124,12 @@ function searchFeature() {
         studentList[i].style.display = 'none';   
       }
     } 
-  }  
+  }
   const pageDiv = document.querySelector('.page');
   const paginationDiv = document.querySelector('.pagination');
   pageDiv.removeChild(paginationDiv)
   appendPageLinks(namesMatch)
-  showPage(namesMatch, 1);
+  showPage(namesMatch, 1); 
 }
 
 button.addEventListener('click', (e) => { 
@@ -125,17 +140,7 @@ button.addEventListener('click', (e) => {
 // NEW BUG: Can't enter more searches once the 'no results' string displays
 input.addEventListener('input', () => {
   searchFeature();
-  if (namesMatch.length === 0) {
-    const createElement = (elementName, property, value) => {
-    const element = document.createElement(elementName); 
-    element[property] = value;
-    return element;
-    }
-    const h2 = createElement('h2', 'textContent', 'No results found matching your search. Please try again.');
-    h2.id = 'no-results';
-    const pageHeader = document.querySelector('.page-header');
-    pageHeader.appendChild(h2);
-  }
+  
 });
 
 
