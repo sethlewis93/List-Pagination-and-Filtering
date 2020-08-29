@@ -119,9 +119,12 @@ function searchFeature() {
         studentList[i].classList.add('match');
       } else {
         studentList[i].style.display = 'none';   
-        let h2Message = document.querySelector('#no-results'); 
-        h2Message.style.visibility = 'visible';
       }
+    }
+    let h2Message = document.querySelector('#no-results'); 
+    h2Message.style.visibility = 'visible';
+    if (h2Message.style.display == 'visible') {
+      h2Message.parentElement.removeChild(h2Message);
     } 
   }
   const pageDiv = document.querySelector('.page');
