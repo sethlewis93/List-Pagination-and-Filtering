@@ -1,5 +1,4 @@
-# List-Pagination-and-Filtering(ii) 
-DON'T FORGET TO SPELL CHECK! 
+# List-Pagination-and-Filtering(ii)
 
 ## About
 
@@ -12,8 +11,7 @@ The bulk of the skills needed to complete this project are related to DOM Manipu
 ## Extra Credit Features
 
 For extra credit, I added the following features dynamically using JS:
-    1.) Search bar (input) and button 
-    2.) Functionality to the search: When the "Search" button is clicked, the list is filtered by student name for those that include the search value.
-    3.) Based on search results, the number of pages available to the user changes. For example, an original page may have X number of links at the bottom of the page when no filter is applied to the names. Once a user searches for a name, the pagination links dynamically change according to the number of students who's names are applicable in the search. 
-    4.) If no matches are found by the search,  a message in the HTML notifies the user that there are no matches.
-
+1.) Search bar (input) and button
+2.) Functionality to the search: When the "Search" button is clicked, the list is filtered by student name for those that include the search value.
+3.) Based on search results, the number of pages available to the user changes. For example, an original page may have X number of links at the bottom of the page when no filter is applied to the names. Once a user searches for a name, the pagination links dynamically change according to the number of students who's names are applicable in the search.
+4.) If no matches are found by the search, a message in the HTML notifies the user that there are no matches.

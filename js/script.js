@@ -1,17 +1,17 @@
 // Store student list items
 const studentList = document.querySelectorAll(".student-item");
 
-// Max number of items per page
+// Maximum number of items per page
 const pageItems = 10;
 
-// Hide all students execept for up to 10
+// Hide all students after 10
 const showPage = (list, page) => {
   const startIndex = page * pageItems - pageItems;
   const endIndex = page * pageItems;
   for (let i = 0; i < list.length; i++) {
     list[i].style.display = "none";
     if (i >= startIndex && i < endIndex) {
-      list[i].style.display = "list-item";
+      list[i].style.display = "block";
     }
   }
 };
@@ -21,10 +21,10 @@ const appendPageLinks = (list) => {
   // Set the pages needed
   const pages = Math.ceil(list.length / pageItems);
 
-  // Create, append pagnination elements
+  // Create, append pagination elements
   const pageDiv = document.querySelector(".page");
 
-  // Target pagination div
+  // Target pagination div (replaces div loaded on page with div of search results)
   const paginationDiv = document.querySelector(".pagination");
   if (paginationDiv) {
     paginationDiv.parentElement.removeChild(paginationDiv);
@@ -76,39 +76,53 @@ appendPageLinks(studentList);
   ////////////////////////////////////////////
 */
 
-// search button
+// SEARCH CAPABILITY
+
+const pageHeaderDiv = document.querySelector(".page-header");
+
+// HOW CAN I MAKE BETTER USE OF STRING LITERALS FOR THIS PROJECT?
+
 const createElement = (elementName, property, value) => {
+  // IS THERE A WAY I COULD'VE DONE THIS WITHOUT SO MANY GLOBAL VARIABLES?
   const element = document.createElement(elementName);
   element[property] = value;
   return element;
 };
-const pageHeaderDiv = document.querySelector(".page-header");
-const searchDiv = createElement("div", "className", "student-search");
-const input = createElement("input", "placeholder", "Search for students...");
-input.type = "text";
+
+const appendToDiv = (elementName, property, value) => {
+  const element = createElement(elementName, property, value);
+  pageHeaderDiv.appendChild(element);
+  return element;
+};
+
+// Create search field, button & append to page
+const searchDiv = appendToDiv("div", "className", "student-search").appendChild(
+  createElement("input", "placeholder", "Search for students...")
+);
+searchDiv.type = "text";
+
 const button = createElement("button", "textContent", "Search");
 button.type = "button";
-pageHeaderDiv.appendChild(searchDiv).appendChild(input);
 searchDiv.appendChild(button);
 
-// Invalid search message
+// Create and append invalid search message
 const h2 = createElement(
   "h2",
   "textContent",
-  "No results found matching your search. Please try again."
+  "No results found matching your search. Please try again"
 );
-const pageHeader = document.querySelector(".page-header");
-pageHeader.appendChild(h2);
 h2.style.display = "none";
+pageHeaderDiv.appendChild(h2);
 
 // Search filter function
-function searchFeature() {
+const searchFeature = () => {
+  // Array into which matching results will be stored
   let namesMatch = [];
   for (let i = 0; i < studentList.length; i++) {
     studentList[i].style.display = "none";
     let studentName = studentList[i].querySelector("h3");
-    if (input.value.length !== 0) {
-      let userSearch = input.value.toLowerCase();
+    if (searchDiv.value.length !== 0) {
+      let userSearch = searchDiv.value.toLowerCase();
       if (studentName.textContent.includes(userSearch)) {
         namesMatch.push(studentList[i]);
       }
@@ -116,18 +130,30 @@ function searchFeature() {
   }
   if (namesMatch.length === 0) {
     h2.style.display = "block";
+    const previousH2 = document.getElementsByTagName("h2")[0];
+    previousH2.style.display = "none";
   } else {
     h2.style.display = "none";
-    appendPageLinks(namesMatch);
-    showPage(namesMatch, 1);
   }
-}
+  appendPageLinks(namesMatch);
+  showPage(namesMatch, 1);
+};
+
+searchDiv.addEventListener("input", () => {
+  searchFeature();
+  if (searchDiv.value.length === 0 && h2.style.display == "block") {
+    h2.style.display = "none";
+    showPage(studentList, 1);
+    appendPageLinks(studentList);
+  }
+});
 
 button.addEventListener("click", (e) => {
   e.preventDefault();
   searchFeature();
-});
-
-input.addEventListener("input", () => {
-  searchFeature();
+  if (searchDiv.value.length === 0 && h2.style.display == "block") {
+    h2.style.display = "none";
+    showPage(studentList, 1);
+    appendPageLinks(studentList);
+  }
 });
