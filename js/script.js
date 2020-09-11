@@ -80,10 +80,8 @@ appendPageLinks(studentList);
 
 const pageHeaderDiv = document.querySelector(".page-header");
 
-// HOW CAN I MAKE BETTER USE OF STRING LITERALS FOR THIS PROJECT?
-
+// Functions to create and append new elements
 const createElement = (elementName, property, value) => {
-  // IS THERE A WAY I COULD'VE DONE THIS WITHOUT SO MANY GLOBAL VARIABLES?
   const element = document.createElement(elementName);
   element[property] = value;
   return element;
