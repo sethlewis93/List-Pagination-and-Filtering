@@ -5,7 +5,7 @@ const studentList = document.querySelectorAll(".student-item");
 const pageItems = 10;
 
 // Hide all students after 10
-const showPage = (list, page) => {
+function showPage(list, page) {
   const startIndex = page * pageItems - pageItems;
   const endIndex = page * pageItems;
   for (let i = 0; i < list.length; i++) {
@@ -17,7 +17,7 @@ const showPage = (list, page) => {
 };
 
 // Create pagination buttons
-const appendPageLinks = (list) => {
+function appendPageLinks(list) {
   // Set the pages needed
   const pages = Math.ceil(list.length / pageItems);
 
@@ -70,11 +70,11 @@ const appendPageLinks = (list) => {
 showPage(studentList, 1);
 appendPageLinks(studentList);
 
-/*
+/***
   ////////////////////////////////////////////
   CODE TO OBTAIN "EXCEEDS EXPECTATIONS" GRADE
   ////////////////////////////////////////////
-*/
+***/
 
 // SEARCH CAPABILITY
 
@@ -113,7 +113,7 @@ h2.style.display = "none";
 pageHeaderDiv.appendChild(h2);
 
 // Search filter function
-const searchFeature = () => {
+function searchFeature() {
   // Array into which matching results will be stored
   let namesMatch = [];
   for (let i = 0; i < studentList.length; i++) {
