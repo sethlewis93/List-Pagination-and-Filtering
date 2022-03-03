@@ -7,10 +7,7 @@ yarn-error.log*
 lerna-debug.log*
 
 # Example HTML
-example/44students.html
-example/64students.html
-example/example-exceeds.html
-example/example-meets.html
+**/examples
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
